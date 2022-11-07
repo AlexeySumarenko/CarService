@@ -7,4 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Car {
     private final String title;
+
+
 }

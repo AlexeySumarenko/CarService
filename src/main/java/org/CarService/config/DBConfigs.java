@@ -1,4 +1,4 @@
-package org.CarService;
+package org.CarService.config;
 
 public class DBConfigs {
     protected String dbHost = "localhost";
