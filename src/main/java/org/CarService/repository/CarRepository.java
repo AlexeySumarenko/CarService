@@ -1,14 +1,43 @@
 package org.CarService.repository;
 
 import org.CarService.entity.Car;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class CarRepository {
-     public List<Car> findAll(){
-          return List.of(new Car("title1"), new Car("title2"));
+     private final DataSource dataSource;
+
+     public CarRepository(@Qualifier  DataSource dataSource) {
+          this.dataSource = dataSource;
+     }
+
+     public List<Car> findAll() {
+          List<Car> cars = new ArrayList<>();
+          String sqlQuery = "SELECT id_car, id_client, car_brand, model, type, release_year FROM car";
+          try (Connection con = dataSource.getConnection();
+               PreparedStatement ps = con.prepareStatement(sqlQuery);
+               ResultSet rs = ps.executeQuery()) {
+               while(rs.next()) {
+                    var car = new Car();
+                    car.setId_car(rs.getInt("Id_car"));
+                    car.setId_client(rs.getInt("id_client"));
+                    car.setCar_brand(rs.getString("car_brand"));
+                    car.setModel(rs.getString("model"));
+                    car.setType(rs.getString("type"));
+                    car.setRelease_year(rs.getInt("release_year"));
+                    cars.add(car);
+               }
+
+          } catch (SQLException e) {
+               throw new RuntimeException(e);
+          }
+          return cars;
      }
 
 }
