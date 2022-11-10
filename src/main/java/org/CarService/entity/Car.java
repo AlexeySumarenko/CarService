@@ -6,12 +6,12 @@ import lombok.RequiredArgsConstructor;
 @Data
 public class Car {
     private String title;
-    private int id_car;
-    private int id_client;
-    private String car_brand;
+    private int idCar;
+    private int idClient;
+    private String carBrand;
     private String model;
     private String type;
-    private int release_year;
+    private int releaseYear;
 
 
 }

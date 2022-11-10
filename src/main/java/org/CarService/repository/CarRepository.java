@@ -13,7 +13,7 @@ import java.util.List;
 public class CarRepository {
      private final DataSource dataSource;
 
-     public CarRepository(@Qualifier  DataSource dataSource) {
+     public CarRepository(@Qualifier DataSource dataSource) {
           this.dataSource = dataSource;
      }
 
@@ -25,15 +25,14 @@ public class CarRepository {
                ResultSet rs = ps.executeQuery()) {
                while(rs.next()) {
                     var car = new Car();
-                    car.setId_car(rs.getInt("Id_car"));
-                    car.setId_client(rs.getInt("id_client"));
-                    car.setCar_brand(rs.getString("car_brand"));
+                    car.setIdCar(rs.getInt("Id_car"));
+                    car.setIdClient(rs.getInt("id_client"));
+                    car.setCarBrand(rs.getString("car_brand"));
                     car.setModel(rs.getString("model"));
                     car.setType(rs.getString("type"));
-                    car.setRelease_year(rs.getInt("release_year"));
+                    car.setReleaseYear(rs.getInt("release_year"));
                     cars.add(car);
                }
-
           } catch (SQLException e) {
                throw new RuntimeException(e);
           }
