@@ -11,7 +11,7 @@ import java.beans.ConstructorProperties;
 @Configuration
 public class DataSourceConfiguration {
 
-    @Bean(name="myDataSource")
+    @Bean
     @ConfigurationProperties("spring.datasource")
     public DataSource myDataSource() {
         return DataSourceBuilder.create().build();

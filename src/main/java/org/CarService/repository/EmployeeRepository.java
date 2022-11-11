@@ -2,6 +2,7 @@ package org.CarService.repository;
 
 import org.CarService.entity.Client;
 import org.CarService.entity.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public class EmployeeRepository {
     private final DataSource dataSource;
 
-    public EmployeeRepository(@Qualifier DataSource dataSource) {
+    public EmployeeRepository(@Autowired DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
