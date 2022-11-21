@@ -2,7 +2,7 @@ server:
     port: 8080
 spring:
     datasource:
-        driver-Class-Name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://127.0.0.1:3306/car_service
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/car_service
         username: root
         password: 12345
