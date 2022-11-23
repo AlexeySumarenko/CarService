@@ -1,20 +1,24 @@
 <template>
-  <div>
-    <b-table striped hover :items="items"></b-table>
-  </div>
+   <div>
+      <b-overlay :show="show" rounded="sm">
+        <b-card title="Карточка с наложением" :aria-hidden="show ? 'true' : null">
+          <b-card-text>Laborum consequat non elit enim exercitation cillum.</b-card-text>
+          <b-card-text>Нажмите кнопку, чтобы переключить наложение:</b-card-text>
+          <b-button :disabled="show" variant="primary" @click="show = true">
+            Показать наложение
+          </b-button>
+        </b-card>
+      </b-overlay>
+      <b-button class="mt-3" @click="show = !show">Переключить наложение</b-button>
+    </div>
 </template>
 
 <script>
   export default {
-    data() {
-      return {
-        items: [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ]
-      }
-    }
-  }
+     data() {
+       return {
+         show: false
+       }
+     }
+   }
 </script>
