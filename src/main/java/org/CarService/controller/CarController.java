@@ -25,14 +25,14 @@ public class CarController {
     @PostMapping("/cars")
     public String saveCar(Car car){
         return this.carService.saveCar(car);
-    }
+    }}
 
-    @GetMapping("/cars")
-    public Car findCar(int id){
+   // @GetMapping("/cars")
+  /*  public Car findCar(int id){
         return this.carService.findCar(id);
-    }
-    @DeleteMapping("/cars")
+    }*/
+  /*  @DeleteMapping("/cars")
     public String deleteCar(int id){
         return this.carService.deleteCar(id);
     }
-}
+}*/
