@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("car")
+@CrossOrigin("http://localhost:3000/")
 public class CarController {
     @Autowired
     private final CarService carService;

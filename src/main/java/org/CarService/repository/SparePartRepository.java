@@ -1,7 +1,7 @@
 package org.CarService.repository;
 
 import org.CarService.entity.SparePart;
-import org.CarService.repository.Mapper.SparePartMapper;
+import org.CarService.Mapper.SparePartMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

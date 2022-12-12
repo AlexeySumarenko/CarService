@@ -1,5 +1,6 @@
 package org.CarService.service;
 
+import org.CarService.dto.CarMapper;
 import org.CarService.entity.Car;
 import org.CarService.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,9 @@ import java.util.List;
 @Service
 public class CarService {
     @Autowired
-    public CarRepository carRepository;
+    private CarRepository carRepository;
 
+    private CarMapper carMapper;
 
     public List<Car> findAllCars() {
         return carRepository.findAll();
@@ -26,7 +28,7 @@ public class CarService {
         return "car saved successfully";
     }
 
-    public Car findCar(int i){
+    public Car findCarById(int i){
         return carRepository.findById(i);
     }
 }

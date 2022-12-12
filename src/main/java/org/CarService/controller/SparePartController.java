@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("sparePart")
 public class SparePartController {
     @Autowired
     private final SparePartService sparePartService;

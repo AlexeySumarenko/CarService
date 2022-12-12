@@ -1,4 +1,4 @@
-package org.CarService.repository.Mapper;
+package org.CarService.Mapper;
 
 
 import org.CarService.entity.Car;

@@ -2,7 +2,7 @@ package org.CarService.repository;
 
 
 import org.CarService.entity.Client;
-import org.CarService.repository.Mapper.ClientMapper;
+import org.CarService.Mapper.ClientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
