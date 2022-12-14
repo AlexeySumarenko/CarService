@@ -1,40 +1,27 @@
 <template>
-  <div>
-    <b-navbar type="dark" variant="dark">
-      <b-navbar-nav>
-        <b-nav-item href="#">Home</b-nav-item>
-
-        <!-- Navbar dropdowns -->
-        <b-nav-item-dropdown text="Lang" right>
-          <b-dropdown-item href="#">EN</b-dropdown-item>
-          <b-dropdown-item href="#">ES</b-dropdown-item>
-          <b-dropdown-item href="#">RU</b-dropdown-item>
-          <b-dropdown-item href="#">FA</b-dropdown-item>
-        </b-nav-item-dropdown>
-
-        <b-nav-item-dropdown text="User" right>
-          <b-dropdown-item href="#">Account</b-dropdown-item>
-          <b-dropdown-item href="#">Settings</b-dropdown-item>
-        </b-nav-item-dropdown>
-
-        <b-nav-item href="#">Cars</b-nav-item>
-      </b-navbar-nav>
-    </b-navbar>
-    <car />
+  <div id="app">
+    <Navigation></Navigation>
+    <router-view/>
   </div>
-
 </template>
 
 <script>
-import Car from './components/Car.vue'
+import Navigation from './components/Navigation'
 export default {
-  name: 'App.vue',
+  name: 'app',
   components: {
-    Car
+    'Navigation': Navigation
   }
 }
 </script>
 
 <style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 
+}
 </style>

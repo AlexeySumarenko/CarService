@@ -33,13 +33,13 @@ export default {
     return { cars:[]
     }
   },
-  methods: {
-    getCars(){
-      CarService.getCars().then((response) => this.cars = response.data)
+  async created(){
+    try {
+      const response = await CarService.getCars()
+      this.cars = response.data
+    } catch (err) {
+      this.error = err
     }
-  },
-    created(){
-    this.getCars()
   }
 }
 </script>

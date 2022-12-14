@@ -7,5 +7,4 @@ class CarService{
         return axios.get(CAR_API_BASE_URL);
     }
 }
-
 export default new CarService()
