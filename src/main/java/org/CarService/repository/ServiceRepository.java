@@ -1,7 +1,7 @@
 package org.CarService.repository;
 
 import org.CarService.entity.Service;
-import org.CarService.Mapper.ServiceMapper;
+import org.CarService.mapper.ServiceMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class ServiceRepository {
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
     public ServiceRepository(JdbcTemplate jdbcTemplate) {
@@ -18,7 +18,7 @@ public class ServiceRepository {
     }
 
     public List<Service> findAll() {
-        return jdbcTemplate.query("SELECT * FROM service", new ServiceMapper());
+        return jdbcTemplate.query("SELECT * FROM service", new ServiceMapperImpl());
     }
 
       /*   public void saveCar(){

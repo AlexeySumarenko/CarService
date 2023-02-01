@@ -1,6 +1,11 @@
 package org.CarService.service;
 
+import org.CarService.dto.CarDto;
+import org.CarService.dto.ClientDto;
+import org.CarService.entity.Car;
 import org.CarService.entity.Client;
+import org.CarService.mapper.ClientMapper;
+import org.CarService.mapper.ClientMapperImpl;
 import org.CarService.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +17,19 @@ public class ClientService {
     @Autowired
     public ClientRepository clientRepository;
 
-    public List<Client> getClient() {
+    private ClientMapper clientMapper = new ClientMapperImpl();
+
+    public List<Client> findAllClients() {
         return clientRepository.findAll();
     }
+
+    public String deleteClient(int id) { return clientRepository.deleteClientById(id);}
+
+    public String saveClient(ClientDto client){
+        clientRepository.saveClient(clientMapper.ClientDtoToClient(client));
+        return "client saved successfully";
+    }
+
+    public Client findClientById(int i) {return clientRepository.findById(i);}
+
 }

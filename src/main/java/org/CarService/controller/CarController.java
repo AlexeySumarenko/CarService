@@ -1,5 +1,6 @@
 package org.CarService.controller;
 
+import org.CarService.dto.CarDto;
 import org.CarService.entity.*;
 import org.CarService.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("car")
+@RequestMapping("")
 @CrossOrigin("http://localhost:3000/")
 public class CarController {
     @Autowired
@@ -24,16 +25,16 @@ public class CarController {
     }
 
     @PostMapping("/cars")
-    public String saveCar(Car car){
-        return this.carService.saveCar(car);
-    }}
-
-   // @GetMapping("/cars")
-  /*  public Car findCar(int id){
-        return this.carService.findCar(id);
-    }*/
-  /*  @DeleteMapping("/cars")
-    public String deleteCar(int id){
-        return this.carService.deleteCar(id);
+    public String saveCar(@RequestBody CarDto carDto){
+        return this.carService.saveCar(carDto);
     }
-}*/
+    @GetMapping("/cars/{id}")
+    public Car findCar(@PathVariable int id){
+        return this.carService.findCarById(id);
+    }
+
+    /*@DeleteMapping("/cars/{id}")
+    public String deleteCar(int id){
+        return this.carService.deleteCar(id);*/
+
+}

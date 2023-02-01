@@ -1,15 +1,21 @@
-package org.CarService.Mapper;
+package org.CarService.mapper;
 
-import org.CarService.entity.Employee;
+import org.CarService.dto.SparePartDto;
+import org.CarService.entity.Car;
 import org.CarService.entity.SparePart;
+import org.mapstruct.Mapper;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SparePartMapper implements RowMapper<SparePart> {
+@Mapper
+public interface SparePartMapper extends RowMapper<SparePart> {
+    SparePartDto SparePartToSparePartDto(SparePart sparePart);
+    SparePart SparePartDtoToSparePart(SparePartDto sparePartDto);
+
     @Override
-    public SparePart mapRow(ResultSet rs, int rowNum) throws SQLException {
+    default SparePart mapRow(ResultSet rs, int rowNum) throws SQLException {
         SparePart sparePart = new SparePart();
         sparePart.setIdSparePart(rs.getInt("id_spare_part"));
         sparePart.setName(rs.getString("name"));

@@ -1,16 +1,21 @@
-package org.CarService.Mapper;
+package org.CarService.mapper;
 
-import org.CarService.entity.Employee;
+import org.CarService.dto.OrderDto;
+import org.CarService.entity.Car;
 import org.CarService.entity.Order;
+import org.mapstruct.Mapper;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class OrderMapper implements RowMapper<Order> {
+@Mapper
+public interface OrderMapper extends RowMapper<Order> {
+    OrderDto OrderToOrderDto(Order order);
+    Order OrderDtoToOrder(OrderDto orderDto);
 
     @Override
-    public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
+    default Order mapRow(ResultSet rs, int rowNum) throws SQLException {
         Order order = new Order();
         order.setIdOrder(rs.getInt("id_order"));
         order.setDateOfReceiving(rs.getString("date_of_receipt"));

@@ -2,7 +2,7 @@ package org.CarService.repository;
 
 
 import org.CarService.entity.Employee;
-import org.CarService.Mapper.EmployeeMapper;
+import org.CarService.mapper.EmployeeMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,7 +19,7 @@ public class EmployeeRepository {
     }
 
     public List<Employee> findAll() {
-        return jdbcTemplate.query("SELECT * FROM employee", new EmployeeMapper());
+        return jdbcTemplate.query("SELECT * FROM employee", new EmployeeMapperImpl());
     }
 
       /*   public void saveCar(){

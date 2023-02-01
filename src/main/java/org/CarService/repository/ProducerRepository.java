@@ -1,7 +1,7 @@
 package org.CarService.repository;
 
 import org.CarService.entity.Producer;
-import org.CarService.Mapper.ProducerMapper;
+import org.CarService.mapper.ProducerMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class ProducerRepository {
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
     public ProducerRepository(JdbcTemplate jdbcTemplate) {
@@ -18,7 +18,7 @@ public class ProducerRepository {
     }
 
     public List<Producer> findAll() {
-        return jdbcTemplate.query("SELECT * FROM producer", new ProducerMapper());
+        return jdbcTemplate.query("SELECT * FROM producer", new ProducerMapperImpl());
     }
 
       /*   public void saveCar(){

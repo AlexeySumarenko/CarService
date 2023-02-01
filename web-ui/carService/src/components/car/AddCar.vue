@@ -1,0 +1,139 @@
+<template>
+  <div class="submit-form">
+    <div v-if="!submitted">
+      <div class="form-group">
+        <label for="title">CarId</label>
+        <input
+            type="text"
+            class="form-control"
+            id="CarId"
+            required
+            v-model="car.idCar"
+            name="CarId"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">idClient</label>
+        <input
+            type="text"
+            class="form-control"
+            id="idClient"
+            required
+            v-model="car.idClient"
+            name="idClient"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">carBrand</label>
+        <input
+            type="text"
+            class="form-control"
+            id="carBrand"
+            required
+            v-model="car.carBrand"
+            name="carBrand"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">model</label>
+        <input
+            type="text"
+            class="form-control"
+            id="model"
+            required
+            v-model="car.model"
+            name="model"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">type</label>
+        <input
+            type="text"
+            class="form-control"
+            id="type"
+            required
+            v-model="car.type"
+            name="type"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">releaseYear</label>
+        <input
+            type="text"
+            class="form-control"
+            id="releaseYear"
+            required
+            v-model="car.releaseYear"
+            name="releaseYear"
+        />
+      </div>
+
+      <button @click="saveCar" class="btn btn-success">Submit</button>
+    </div>
+
+    <div v-else>
+      <h4>You submitted successfully!</h4>
+      <button class="btn btn-success" @click="newCar">Add</button>
+    </div>
+  </div>
+</template>
+
+<script>
+import CarService from "../../services/CarService";
+
+export default {
+  name: "add-car",
+  data() {
+    return {
+      car: {
+        idCar: '',
+        idClient: '',
+        carBrand: "",
+        model: "",
+        type: "",
+        releaseYear: ""
+      },
+      submitted: false
+    };
+  },
+  methods: {
+    saveCar() {
+      var data = {
+        idCar: parseInt(this.car.idCar),
+        idClient: parseInt(this.car.idClient),
+        carBrand: this.car.carBrand,
+        model: this.car.model,
+        type: this.car.type,
+        releaseYear: parseInt(this.car.releaseYear)
+      };
+
+      CarService.create(data)
+          .then(response => {
+            this.car.idCar = response.data.idCar;
+            console.log(response.data);
+            this.submitted = true;
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    },
+
+    newCar() {
+      this.submitted = false;
+      this.car = {};
+    }
+  }
+};
+</script>
+
+<style>
+.submit-form {
+  max-width: 300px;
+  margin: auto;
+}
+</style>

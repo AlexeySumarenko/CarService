@@ -8,12 +8,16 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item to="/cars">Cars</b-nav-item>
+          <b-nav-item to="/car">Car</b-nav-item>
           <b-nav-item to="/clients">Clients</b-nav-item>
-          <b-nav-item to="/employees">Employees</b-nav-item>
+          <b-nav-item to="/client">Client</b-nav-item>
+<!--          <b-nav-item to="/employees">Employees</b-nav-item>
           <b-nav-item to="/orders">Orders</b-nav-item>
           <b-nav-item to="/producers">Producers</b-nav-item>
           <b-nav-item to="/service">Service</b-nav-item>
-          <b-nav-item to="/spare_parts">Spare parts</b-nav-item>
+          <b-nav-item to="/spare_parts">Spare parts</b-nav-item>-->
+          <b-nav-item to="/add_car">Add Car</b-nav-item>
+          <b-nav-item to="/add_client">Add Client</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -58,7 +62,7 @@ export default {
         {
           id: 1,
           text: 'Cars',
-          page:'/Cars'
+          page:'/cars'
         },
         {
           id: 2,
@@ -89,7 +93,17 @@ export default {
           id: 7,
           text: 'Spare_parts',
           page:'/spare_parts'
-        }
+        },
+        {
+          id: 8,
+          text: 'Add_car',
+          page:'/add_car'
+        },
+        {
+          id: 9,
+          text: 'Car',
+          page:'/car'
+        },
       ]
     }
   }

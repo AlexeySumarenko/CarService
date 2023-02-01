@@ -2,6 +2,7 @@ package org.CarService.entity;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Entity;
 
@@ -14,6 +15,4 @@ public class Car {
     private String model;
     private String type;
     private int releaseYear;
-
-
 }

@@ -1,15 +1,22 @@
-package org.CarService.Mapper;
+package org.CarService.mapper;
 
+import org.CarService.dto.EmployeeDto;
+import org.CarService.entity.Car;
 import org.CarService.entity.Client;
 import org.CarService.entity.Employee;
+import org.mapstruct.Mapper;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class EmployeeMapper implements RowMapper<Employee> {
+@Mapper
+public interface EmployeeMapper extends RowMapper<Employee> {
+    EmployeeDto EmployeeToEmployeeDto(Employee employee);
+    Employee EmployeeDtoToEmployee(EmployeeDto employeeDto);
+
     @Override
-    public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
+    default Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
         Employee employee = new Employee();
         employee.setIdEmployee(rs.getInt("id_employee"));
         employee.setFullName(rs.getString("full_name"));
