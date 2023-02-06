@@ -25,13 +25,16 @@ public class CarService {
        return carRepository.deleteCarById(id);
     }
 
-    public String saveCar(CarDto car){
-        carRepository.saveCar(carMapper.CarDtoToCar(car));
+    public String saveCar(CarDto carDto){
+        carRepository.saveCar(carMapper.CarDtoToCar(carDto));
         return "car saved successfully";
     }
+    public Car updateCar(int id, CarDto carDto){
+        return carRepository.updateCar(id, carMapper.CarDtoToCar(carDto));
+    }
 
-    public Car findCarById(int i){
-        return carRepository.findById(i);
+    public Car findCarById(int id){
+        return carRepository.findById(id);
     }
 }
 

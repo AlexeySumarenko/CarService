@@ -1,28 +1,17 @@
 <template>
   <div class="submit-form">
     <div v-if="!submitted">
-      <div class="form-group">
-        <label for="title">CarId</label>
-        <input
-            type="text"
-            class="form-control"
-            id="CarId"
-            required
-            v-model="car.idCar"
-            name="CarId"
-        />
-      </div>
 
       <div class="form-group">
-        <label for="description">idClient</label>
-        <input
-            type="text"
-            class="form-control"
-            id="idClient"
-            required
-            v-model="car.idClient"
-            name="idClient"
-        />
+        <label for="description">Client FullName</label>
+        <div>
+        <select v-model="car.idClient" >
+          <option v-for="option in options" :value="option.idClient">
+            {{ option.fullName }}
+          </option>
+        </select>
+        </div>
+        <div>idClient: {{ selected }}</div>
       </div>
 
       <div class="form-group">
@@ -70,6 +59,7 @@
             required
             v-model="car.releaseYear"
             name="releaseYear"
+
         />
       </div>
 
@@ -78,33 +68,42 @@
 
     <div v-else>
       <h4>You submitted successfully!</h4>
-      <button class="btn btn-success" @click="newCar">Add</button>
+      <button class="btn btn-success" @click="newCar">Ok</button>
     </div>
   </div>
 </template>
 
 <script>
 import CarService from "../../services/CarService";
+import ClientService from "@/services/ClientService";
 
 export default {
   name: "add-car",
   data() {
     return {
       car: {
-        idCar: '',
-        idClient: '',
+        idClient: "",
         carBrand: "",
         model: "",
         type: "",
         releaseYear: ""
       },
-      submitted: false
+      submitted: false,
+      selected: '1',
+      options: []
     };
+  },
+  async mounted(){
+    try {
+      const response = await ClientService.getAll()
+      this.options = response.data
+    } catch (err) {
+      this.error = err
+    }
   },
   methods: {
     saveCar() {
       var data = {
-        idCar: parseInt(this.car.idCar),
         idClient: parseInt(this.car.idClient),
         carBrand: this.car.carBrand,
         model: this.car.model,
@@ -126,7 +125,8 @@ export default {
     newCar() {
       this.submitted = false;
       this.car = {};
-    }
+    },
+
   }
 };
 </script>

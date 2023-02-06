@@ -1,6 +1,8 @@
 package org.CarService.repository;
 
+import org.CarService.entity.Service;
 import org.CarService.entity.SparePart;
+import org.CarService.mapper.ServiceMapperImpl;
 import org.CarService.mapper.SparePartMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,16 +23,23 @@ public class SparePartRepository {
         return jdbcTemplate.query("SELECT * FROM spare_part", new SparePartMapperImpl());
     }
 
-      /*   public void saveCar(){
-          jdbcTemplate.update("INSERT INTO car VALUES")
-     }
+    public SparePart saveSparePart(SparePart newSparePart) {
+        System.out.println(newSparePart);
+        jdbcTemplate.update("INSERT INTO spare_part (spare_part_name, price, quantity) VALUES ( ?, ?, ?) ", newSparePart.getSparePartName(), newSparePart.getPrice(), newSparePart.getQuantity());
+        return newSparePart;
+    }
+    public SparePart updateSparePart(int id, SparePart updatedSparePart) {
+        jdbcTemplate.update("UPDATE spare_part SET spare_part_name=?, price=?, quantity=? WHERE id_spare_part=?",
+                updatedSparePart.getSparePartName(), updatedSparePart.getPrice(), updatedSparePart.getQuantity(), id);
+        return updatedSparePart;
+    }
 
-     public Car findById(){
+    public SparePart findById(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM spare_part WHERE id_spare_part=?", new SparePartMapperImpl(), id);
+    }
 
-     }
-
-     public void deleteById(int id){
-
-     }*/
-
+    public String deleteSparePartById(int id) {
+        jdbcTemplate.update("DELETE FROM spare_part WHERE id_spare_part=?", id);
+        return "SparePart got deleted with id = " + id;
+    }
 }

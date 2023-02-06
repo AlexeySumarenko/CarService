@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("")
-@CrossOrigin("http://localhost:3000/")
+@RequestMapping("cars")
+@CrossOrigin("http://localhost:3000")
 public class CarController {
     @Autowired
     private final CarService carService;
@@ -19,22 +19,27 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/cars")
+    @GetMapping()
     public List<Car> getAllCars() {
         return this.carService.findAllCars();
     }
 
-    @PostMapping("/cars")
+    @PostMapping()
     public String saveCar(@RequestBody CarDto carDto){
         return this.carService.saveCar(carDto);
     }
-    @GetMapping("/cars/{id}")
+    @GetMapping("/{id}")
     public Car findCar(@PathVariable int id){
         return this.carService.findCarById(id);
     }
 
-    /*@DeleteMapping("/cars/{id}")
-    public String deleteCar(int id){
-        return this.carService.deleteCar(id);*/
+    @DeleteMapping("/{id}")
+    public String deleteCar(@PathVariable int id){
+        return this.carService.deleteCar(id);}
+
+    @PutMapping("/{id}")
+    public Car updateCar(@PathVariable("id") int id, @RequestBody CarDto carDto) {
+        return this.carService.updateCar(id, carDto);
+    }
 
 }

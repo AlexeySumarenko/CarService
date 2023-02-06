@@ -1,6 +1,8 @@
 package org.CarService.controller;
 
+import org.CarService.dto.CarDto;
 import org.CarService.dto.ClientDto;
+import org.CarService.entity.Car;
 import org.CarService.entity.Client;
 import org.CarService.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("")
-@CrossOrigin("http://localhost:3000/")
+@RequestMapping("clients")
+@CrossOrigin("http://localhost:3000")
 public class ClientController {
     @Autowired
     private final ClientService clientService;
@@ -19,22 +21,27 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/clients")
+    @GetMapping()
     public List<Client> getAllClients() {
         return this.clientService.findAllClients();
     }
 
-    @PostMapping("/clients")
+    @PostMapping()
     public String saveClient(@RequestBody ClientDto clientDto){
         return this.clientService.saveClient(clientDto);
     }
-    @GetMapping("/clients/{id}")
+    @GetMapping("/{id}")
     public Client findClient(@PathVariable int id){
         return this.clientService.findClientById(id);
     }
 
-    /*@DeleteMapping("/cars/{id}")
-    public String deleteCar(int id){
-        return this.carService.deleteCar(id);*/
+    @DeleteMapping("/{id}")
+    public String deleteClient(@PathVariable int id){
+        return this.clientService.deleteClient(id);}
+
+    @PutMapping("/{id}")
+    public Client updateClient(@PathVariable("id") int id, @RequestBody ClientDto clientDto) {
+        return this.clientService.updateDtoClient(id, clientDto);
+    }
 
 }

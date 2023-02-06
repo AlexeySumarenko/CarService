@@ -11,12 +11,14 @@ import AddCar from "@/components/car/AddCar";
 import Client from "@/components/client/Client";
 import ClientList from "@/components/client/ClientList";
 import AddClient from "@/components/client/AddClient";
+import PopUpDeleteCar from "@/components/car/PopUpDeleteCar";
 Vue.use(Router)
 
 export default new Router({
+    mode: 'history',
     routes: [
         {
-            path: '/',
+            path: '/home',
             name: 'Home',
             component: Home
         },
@@ -26,10 +28,15 @@ export default new Router({
             component: CarsList
         },
         {
-            path: '/car',
+            path: '/cars/:id',
             name: 'Car',
             component: Car
         },
+     /*   {
+            path: '/cars/PopUpDeleteCar/:id',
+            name: 'PopUpDeleteCar',
+            component: PopUpDeleteCar
+        },*/
         {
             path: '/add_car',
             name: 'Add_car',
@@ -41,7 +48,7 @@ export default new Router({
             component: ClientList
         },
         {
-            path: '/client',
+            path: '/clients/:id',
             name: 'Client',
             component: Client
         },

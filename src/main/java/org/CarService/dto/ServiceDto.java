@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class ServiceDto {
-    private int id_service;
-    private String service_name;
+    private int idService;
+    private String serviceName;
     private Double price;
     private String guarantee;
 

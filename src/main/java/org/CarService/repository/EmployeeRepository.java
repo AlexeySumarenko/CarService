@@ -22,16 +22,31 @@ public class EmployeeRepository {
         return jdbcTemplate.query("SELECT * FROM employee", new EmployeeMapperImpl());
     }
 
-      /*   public void saveCar(){
-          jdbcTemplate.update("INSERT INTO car VALUES")
-     }
+    public Employee saveEmployee(Employee newEmployee) {
+        System.out.println(newEmployee);
+        jdbcTemplate.update("INSERT INTO employee (full_name, job_position, age, phone, " +
+                        "address) VALUES ( ?, ?, ?, ?, ?) ", newEmployee.getFullName()
+                , newEmployee.getJobPosition(), newEmployee.getAge(), newEmployee.getPhone(),
+                newEmployee.getAddress());
+        return newEmployee;
+    }
 
-     public Car findById(){
+    public Employee updateEmployee(int id, Employee updatedEmployee) {
+        jdbcTemplate.update("UPDATE employee SET full_name=?, job_position=?, age=?, " +
+                        "phone=?, address=? WHERE id_employee=?",
+                updatedEmployee.getFullName(), updatedEmployee.getJobPosition(), updatedEmployee.getAge(),
+                updatedEmployee.getPhone(), updatedEmployee.getAddress(), id);
+        return updatedEmployee;
+    }
 
-     }
+    public Employee findById(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM employee WHERE id_employee=?",
+                new EmployeeMapperImpl(), id);
+    }
 
-     public void deleteById(int id){
-
-     }*/
+    public String deleteEmployeeById(int id) {
+        jdbcTemplate.update("DELETE FROM employee WHERE id_employee=?", id);
+        return "Employee got deleted with id = " + id;
+    }
 
 }

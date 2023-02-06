@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ProducerDto {
-    private int id_producer;
+    private int idProducer;
     private String company;
     private String address;
 }

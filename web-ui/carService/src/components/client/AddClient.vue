@@ -1,7 +1,8 @@
 <template>
   <div class="submit-form">
     <div v-if="!submitted">
-      <div class="form-group">
+
+<!--      <div class="form-group">
         <label for="title">ClientId</label>
         <input
             type="text"
@@ -11,17 +12,17 @@
             v-model="client.idClient"
             name="CarId"
         />
-      </div>
+      </div>-->
 
       <div class="form-group">
         <label for="description">FullName</label>
         <input
             type="text"
             class="form-control"
-            id="idClient"
+            id="fullName"
             required
             v-model="client.fullName"
-            name="idClient"
+            name="fullName"
         />
       </div>
 
@@ -30,14 +31,14 @@
         <input
             type="text"
             class="form-control"
-            id="carBrand"
+            id="userName"
             required
             v-model="client.userName"
-            name="carBrand"
+            name="userName"
         />
       </div>
 
-      <div class="form-group">
+<!--      <div class="form-group">
         <label for="description">Password</label>
         <input
             type="text"
@@ -47,17 +48,17 @@
             v-model="client.password"
             name="type"
         />
-      </div>
+      </div>-->
 
       <div class="form-group">
         <label for="description">Gender</label>
         <input
             type="text"
             class="form-control"
-            id="model"
+            id="gender"
             required
             v-model="client.gender"
-            name="model"
+            name="gender"
         />
       </div>
 
@@ -66,10 +67,10 @@
         <input
             type="text"
             class="form-control"
-            id="type"
+            id="phone"
             required
             v-model="client.phone"
-            name="type"
+            name="phone"
         />
       </div>
 
@@ -91,10 +92,8 @@ export default {
   data() {
     return {
       client: {
-        idClient: "",
         fullName: "",
         userName: "",
-        password: "",
         gender: "",
         phone: "",
       },
@@ -104,10 +103,8 @@ export default {
   methods: {
     saveClient() {
       var data = {
-        idClient: this.client.idClient,
         fullName: this.client.fullName,
         userName: this.client.userName,
-        password: this.client.password,
         gender: this.client.gender,
         phone: this.client.phone,
       };

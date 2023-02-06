@@ -18,7 +18,7 @@ public interface SparePartMapper extends RowMapper<SparePart> {
     default SparePart mapRow(ResultSet rs, int rowNum) throws SQLException {
         SparePart sparePart = new SparePart();
         sparePart.setIdSparePart(rs.getInt("id_spare_part"));
-        sparePart.setName(rs.getString("name"));
+        sparePart.setSparePartName(rs.getString("name"));
         sparePart.setPrice(rs.getDouble("price"));
         sparePart.setQuantity(rs.getInt("quantity"));
 

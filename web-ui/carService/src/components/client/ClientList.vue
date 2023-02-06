@@ -2,34 +2,58 @@
   <div class="container">
 
     <h1 class="text-center">Client list</h1>
-    <table class="table table-striped">
-      <thead>
-      <th>Client Id</th>
-      <th>Full name</th>
-      <th>User name</th>
-      <th>Gender</th>
-      <th>Phone</th>
-      </thead>
-      <tbody>
-      <tr v-for="client in clients" v-bind:key = "client.id">
-        <td>{{client.idClient}}</td>
-        <td>{{client.fullName}}</td>
-        <td>{{client.userName}}</td>
-        <td>{{client.gender}}</td>
-        <td>{{client.phone}}</td>
+    <div>
+      <b-button-toolbar aria-label="Панель инструментов с группами кнопок и раскрывающимся меню">
+        <b-button-group class="mx-1">
+          <b-button href="/add_client">Add Client</b-button>
+        </b-button-group>
+        <b-dropdown class="mx-1" right text="menu">
+          <b-dropdown-item>Элемент 1</b-dropdown-item>
+          <b-dropdown-item>Элемент 2</b-dropdown-item>
+          <b-dropdown-item>Элемент 3</b-dropdown-item>
+        </b-dropdown>
+      </b-button-toolbar>
+    </div>
+    <b-table id="client-table" striped hover :items="clients" :fields="fields" :per-page="perPage"
+             :current-page="currentPage" primary-key="idClient">
+      <template v-slot:cell(edit)="data">
+        <b-button  :href="'/clients/' + data.item.idClient" >Edit</b-button>
+      </template>
+      <template v-slot:cell(delete)="data">
+        <b-button  v-b-modal.modal-center @click="idClientDelete = data.item.idClient" >Delete</b-button>
+      </template>
+    </b-table>
 
-      </tr>
-      </tbody>
-    </table>
+    <p class="mt-3">Текущая страница: {{ currentPage }}</p>
+    <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        first-text="First"
+        prev-text="Prev"
+        next-text="Next"
+        last-text="Last"
+        aria-controls="client-table"
+    ></b-pagination>
+    <b-modal id="modal-center" centered title="Delete Client" @ok="deleteClient(idClientDelete)">
+      <p class="my-4">Are you sure you want to delete this client?</p>
+    </b-modal>
+
   </div>
 </template>
 
 <script>
 import ClientService from "../../services/ClientService";
+import CarService from "@/services/CarService";
 export default {
   name: "client-list",
   data(){
-    return { clients:[]
+    return {
+      clients:[],
+      fields: ['idClient', 'fullName', 'userName', 'gender', 'phone', 'edit', 'delete'],
+      perPage: 3,
+      currentPage: 1,
+      idClientDelete: null
     }
   },
   async mounted(){
@@ -40,8 +64,21 @@ export default {
       this.error = err
     }
   },
+  computed: {
+    rows() {
+      return this.clients.length;
+    }},
   methods:{
-
+    deleteClient(idClientDelete) {
+      ClientService.delete(idClientDelete)
+          .then(response => {
+            console.log(response.data);
+            this.$router.push({ name: "client" });
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    }
   }
 }
 </script>

@@ -1,8 +1,6 @@
 package org.CarService.service;
 
-import org.CarService.dto.CarDto;
 import org.CarService.dto.ClientDto;
-import org.CarService.entity.Car;
 import org.CarService.entity.Client;
 import org.CarService.mapper.ClientMapper;
 import org.CarService.mapper.ClientMapperImpl;
@@ -25,11 +23,15 @@ public class ClientService {
 
     public String deleteClient(int id) { return clientRepository.deleteClientById(id);}
 
-    public String saveClient(ClientDto client){
-        clientRepository.saveClient(clientMapper.ClientDtoToClient(client));
+    public String saveClient(ClientDto clientDto){
+        clientRepository.saveClient(clientMapper.ClientDtoToClient(clientDto));
         return "client saved successfully";
     }
 
-    public Client findClientById(int i) {return clientRepository.findById(i);}
+    public Client updateDtoClient(int id, ClientDto clientDto){
+        return clientRepository.updateDtoClient(id, clientMapper.ClientDtoToClient(clientDto));
+    }
+
+    public Client findClientById(int id) {return clientRepository.findById(id);}
 
 }

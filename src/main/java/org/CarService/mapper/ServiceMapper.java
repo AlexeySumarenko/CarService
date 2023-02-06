@@ -17,8 +17,8 @@ public interface ServiceMapper extends RowMapper<Service> {
     @Override
     default Service mapRow(ResultSet rs, int rowNum) throws SQLException {
         Service service = new Service();
-        service.setId_service(rs.getInt("id_employee"));
-        service.setService_name(rs.getString("service_name"));
+        service.setIdService(rs.getInt("id_employee"));
+        service.setServiceName(rs.getString("service_name"));
         service.setGuarantee(rs.getString("guarantee"));
         service.setPrice(rs.getDouble("price"));
 

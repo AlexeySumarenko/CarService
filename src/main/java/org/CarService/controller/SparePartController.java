@@ -1,16 +1,16 @@
 package org.CarService.controller;
 
+import org.CarService.dto.SparePartDto;
 import org.CarService.entity.SparePart;
 import org.CarService.service.SparePartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("sparePart")
+@RequestMapping("spareParts")
+@CrossOrigin("http://localhost:3000")
 public class SparePartController {
     @Autowired
     private final SparePartService sparePartService;
@@ -19,8 +19,26 @@ public class SparePartController {
         this.sparePartService = sparePartService;
     }
 
-    @GetMapping("/spareParts")
-    public List<SparePart> getSpareParts() {
-        return this.sparePartService.getSpareParts();
+    @GetMapping()
+    public List<SparePart> getAllSpareParts() {
+        return this.sparePartService.findAllSpareParts();
+    }
+
+    @PostMapping()
+    public String saveSparePart(@RequestBody SparePartDto sparePartDto){
+        return this.sparePartService.saveSparePart(sparePartDto);
+    }
+    @GetMapping("/{id}")
+    public SparePart findSparePart(@PathVariable int id){
+        return this.sparePartService.findSparePartById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteSparePart(@PathVariable int id){
+        return this.sparePartService.deleteSparePart(id);}
+
+    @PutMapping("/{id}")
+    public SparePart updateSparePart(@PathVariable int id, @RequestBody SparePartDto sparePartDto) {
+        return this.sparePartService.updateSparePart(id, sparePartDto);
     }
 }

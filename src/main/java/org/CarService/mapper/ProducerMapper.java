@@ -17,7 +17,7 @@ public interface ProducerMapper extends RowMapper<Producer> {
     @Override
     default Producer mapRow(ResultSet rs, int rowNum) throws SQLException {
         Producer producer = new Producer();
-        producer.setId_producer(rs.getInt("id_producer"));
+        producer.setIdProducer(rs.getInt("id_producer"));
         producer.setAddress(rs.getString("address"));
         producer.setCompany(rs.getString("company"));
         return producer;

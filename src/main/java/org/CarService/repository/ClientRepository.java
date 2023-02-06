@@ -26,20 +26,26 @@ public class ClientRepository {
 
     public Client saveClient(Client newClient) {
         System.out.println(newClient);
-        jdbcTemplate.update("INSERT INTO client (id_client, full_name, user_name, password, gender, phone) VALUES (?, ?, ?, " +
-                        "?, ?, ?) ", newClient.getIdClient(), newClient.getFullName(), newClient.getUserName(), newClient.getPassword(), newClient.getGender(), newClient.getPhone());
+        jdbcTemplate.update("INSERT INTO client ( full_name, user_name, password, gender, phone) VALUES (?, ?, ?, " +
+                        "?, ?, ?) ", newClient.getFullName(), newClient.getUserName(), newClient.getPassword(), newClient.getGender(), newClient.getPhone());
         return newClient;
     }
-    public Client update(int id, Client updatedClient) {
-        jdbcTemplate.update("UPDATE client SET id_client=?, full_name=?, user_name=?, password=?, gender=?, phone=? WHERE id=?",
+    /*public Client updateClient(int id, Client updatedClient) {
+        jdbcTemplate.update("UPDATE client SET id_client=?, full_name=?, user_name=?, password=?, gender=?, phone=? WHERE id_client=?",
                 updatedClient.getIdClient(), updatedClient.getFullName(), updatedClient.getUserName(), updatedClient.getPassword(), updatedClient.getGender(), updatedClient.getPhone(), id);
+        return updatedClient;
+    }*/
+
+    public Client updateDtoClient(int id, Client updatedClient) {
+        jdbcTemplate.update("UPDATE client SET full_name=?, user_name=?, gender=?, phone=? WHERE id_client=?",
+                updatedClient.getFullName(), updatedClient.getUserName(), updatedClient.getGender(), updatedClient.getPhone(), id);
         return updatedClient;
     }
     public Client findById(int id) {
         return jdbcTemplate.queryForObject("SELECT * FROM client WHERE id_client = ?", new ClientMapperImpl(), id);
     }
     public String deleteClientById(int id) {
-        jdbcTemplate.update("DELETE FROM client WHERE id=?", id);
+        jdbcTemplate.update("DELETE FROM client WHERE id_client=?", id);
         return "Client got deleted with id = " + id;
     }
 
