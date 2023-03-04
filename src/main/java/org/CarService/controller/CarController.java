@@ -21,7 +21,7 @@ public class CarController {
 
     @GetMapping()
     public List<Car> getAllCars() {
-        return this.carService.findAllCars();
+        return this.carService.findAllCars(3);
     }
 
     @PostMapping()

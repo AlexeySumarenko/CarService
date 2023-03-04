@@ -4,7 +4,9 @@ import org.CarService.entity.Car;
 import org.CarService.mapper.CarMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,21 +14,27 @@ import java.util.List;
 public class CarRepository {
     private final JdbcTemplate jdbcTemplate;
 
+
     @Autowired
     public CarRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Car> findAll() {
-        return jdbcTemplate.query("SELECT * FROM car", new CarMapperImpl());
+    public List<Car> findAll(int quantity) {
+        return jdbcTemplate.query("SELECT * FROM car LIMIT=?", new CarMapperImpl(), quantity);
     }
-
-    public Car saveCar(Car newCar) {
+    @Transactional
+    public int saveCar(Car newCar) {
+/*
+        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+*/
         System.out.println(newCar);
-        jdbcTemplate.update("INSERT INTO car (id_client, car_brand, model, `type`, release_year) VALUES ( ?, ?, " +
-                        "?, ?, ?) ", newCar.getIdClient(), newCar.getCarBrand(), newCar.getModel(),
+        jdbcTemplate.update("INSERT INTO car (id_client, car_brand, model, `type`, release_year) VALUES ( ?, ?, ?, ?, ?) ", newCar.getIdClient(), newCar.getCarBrand(), newCar.getModel(),
                 newCar.getType(), newCar.getReleaseYear());
-        return newCar;
+/*
+        int i = generatedKeyHolder.getKey().intValue();
+*/
+        return jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
     }
 
     public Car updateCar(int id, Car updatedCar) {

@@ -7,6 +7,7 @@ import org.CarService.mapper.SparePartMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class SparePartRepository {
     public List<SparePart> findAll() {
         return jdbcTemplate.query("SELECT * FROM spare_part", new SparePartMapperImpl());
     }
-
-    public SparePart saveSparePart(SparePart newSparePart) {
+    @Transactional
+    public int saveSparePart(SparePart newSparePart) {
         System.out.println(newSparePart);
-        jdbcTemplate.update("INSERT INTO spare_part (spare_part_name, price, quantity) VALUES ( ?, ?, ?) ", newSparePart.getSparePartName(), newSparePart.getPrice(), newSparePart.getQuantity());
-        return newSparePart;
+        jdbcTemplate.update("INSERT INTO spare_part (spare_part_name, price, quantity, id_producer) VALUES ( ?, ?, ?, ?) ", newSparePart.getSparePartName(), newSparePart.getPrice(), newSparePart.getQuantity(), newSparePart.getIdProducer());
+        return jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
     }
     public SparePart updateSparePart(int id, SparePart updatedSparePart) {
         jdbcTemplate.update("UPDATE spare_part SET spare_part_name=?, price=?, quantity=? WHERE id_spare_part=?",

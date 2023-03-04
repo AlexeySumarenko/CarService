@@ -7,6 +7,7 @@ import org.CarService.mapper.ServiceMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class ServiceRepository {
     public List<Service> findAll() {
         return jdbcTemplate.query("SELECT * FROM service", new ServiceMapperImpl());
     }
-
-    public Service saveService(Service newService) {
+    @Transactional
+    public int saveService(Service newService) {
         System.out.println(newService);
-        jdbcTemplate.update("INSERT INTO service (service_name, price, guarantee) VALUES ( ?, ?, ?) ", newService.getServiceName(), newService.getPrice(), newService.getGuarantee());
-        return newService;
+        jdbcTemplate.update("INSERT INTO service (service_name, price, guarantee, id_employee) VALUES ( ?, ?, ?, ?) ", newService.getServiceName(), newService.getPrice(), newService.getGuarantee(), newService.getIdEmployee());
+        return jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
     }
 
     public Service updateService(int id, Service updatedService) {

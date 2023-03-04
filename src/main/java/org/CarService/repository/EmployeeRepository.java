@@ -6,6 +6,7 @@ import org.CarService.mapper.EmployeeMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,14 +22,14 @@ public class EmployeeRepository {
     public List<Employee> findAll() {
         return jdbcTemplate.query("SELECT * FROM employee", new EmployeeMapperImpl());
     }
-
-    public Employee saveEmployee(Employee newEmployee) {
+    @Transactional
+    public int saveEmployee(Employee newEmployee) {
         System.out.println(newEmployee);
         jdbcTemplate.update("INSERT INTO employee (full_name, job_position, age, phone, " +
                         "address) VALUES ( ?, ?, ?, ?, ?) ", newEmployee.getFullName()
                 , newEmployee.getJobPosition(), newEmployee.getAge(), newEmployee.getPhone(),
                 newEmployee.getAddress());
-        return newEmployee;
+        return jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
     }
 
     public Employee updateEmployee(int id, Employee updatedEmployee) {

@@ -18,8 +18,8 @@ public interface OrderMapper extends RowMapper<Order> {
     default Order mapRow(ResultSet rs, int rowNum) throws SQLException {
         Order order = new Order();
         order.setIdOrder(rs.getInt("id_order"));
-        order.setDateOfReceiving(rs.getString("date_of_receiving"));
-        order.setDateOfCompletion(rs.getString("date_of_completion"));
+        order.setDateOfReceiving(rs.getDate("date_of_receiving"));
+        order.setDateOfCompletion(rs.getDate("date_of_completion"));
         order.setIdClient(rs.getInt("id_client"));
         order.setIdEmployee(rs.getInt("id_employee"));
         order.setPrice(rs.getDouble("price"));

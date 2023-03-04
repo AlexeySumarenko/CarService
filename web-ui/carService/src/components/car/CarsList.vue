@@ -12,6 +12,12 @@
           <b-dropdown-item>Элемент 2</b-dropdown-item>
           <b-dropdown-item>Элемент 3</b-dropdown-item>
         </b-dropdown>
+
+
+            <div class="col-md-auto row justify-content-md per-page">
+              <b-form-select v-model="perPage" :options="options"></b-form-select>
+            </div>
+
       </b-button-toolbar>
     </div>
 
@@ -25,7 +31,8 @@
       </template>
     </b-table>
 
-    <p class="mt-3">Текущая страница: {{ currentPage }}</p>
+
+
     <b-pagination
         v-model="currentPage"
         :total-rows="rows"
@@ -35,6 +42,7 @@
         next-text="Next"
         last-text="Last"
         aria-controls="car-table"
+        align="center"
     ></b-pagination>
 
     <b-modal id="modal-center" centered title="Delete Car" @ok="deleteCar(idCarDelete)" >
@@ -47,12 +55,8 @@
 
 <script>
 import CarService from "../../services/CarService";
-import PopUpDeleteCar from "@/components/car/PopUpDeleteCar";
 export default {
   name: "car-list",
-  components: {
-    PopUpDeleteCar
-  },
   data(){
     return {
       cars:[],
@@ -60,12 +64,20 @@ export default {
       perPage: 3,
       currentPage: 1,
       idCarDelete: null,
+      options: [
+        { value: 3, text: 'Elements per page: 3' },
+        { value: 5, text: 'Elements per page: 5' },
+        { value: 10, text: 'Elements per page: 10' },
+        { value: 15, text: 'Elements per page: 15' },
+        { value: 20, text: 'Elements per page: 20' }
+      ]
     }
   },
 
   async mounted(){
     try {
-      const response = await CarService.getAll()
+      const params = this.perPage
+      const response = await CarService.getAll(params)
       this.cars = response.data
     } catch (err) {
       this.error = err
@@ -76,33 +88,28 @@ export default {
       return this.cars.length;
     }},
   methods:{
+
     async deleteCar(idCarDelete) {
       try {
         await CarService.delete(idCarDelete);
-        this.$bvToast.toast('Toast body content', {
-          title: `Item success deleted`,
+        this.$bvToast.toast('Car success deleted', {
+          title: `Delete car`,
           variant: 'success',
           solid: true,
         });
-        const response = await CarService.getAll()
+        const params = this.perPage
+        const response = await CarService.getAll(params)
+
         this.cars = response.data
       } catch (e) {
       }
-  },
-
-
-    setLocation(id){
-      history.pushState("object or string", "Title", "/cars/ + id");
-    },
-    showModal: function () {
-      this.$refs.delModal.modalShow = true
-    },
-
-
+    }
   }
 }
 </script>
 
 <style>
-
+.per-page {
+  margin-left: auto;
+}
 </style>

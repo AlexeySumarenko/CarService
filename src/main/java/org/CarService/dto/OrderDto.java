@@ -2,11 +2,13 @@ package org.CarService.dto;
 
 import lombok.Data;
 
+import java.sql.Date;
+
 @Data
 public class OrderDto {
     private int idOrder;
-    private String dateOfReceiving;
-    private String dateOfCompletion;
+    private Date dateOfReceiving;
+    private Date dateOfCompletion;
     private int idClient;
     private int idEmployee;
     private Double price;

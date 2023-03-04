@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container" >
 
-    <h1 class="text-center">Client list</h1>
+    <h1 class="text-center">Producer list</h1>
     <div>
       <b-button-toolbar aria-label="Панель инструментов с группами кнопок и раскрывающимся меню">
         <b-button-group class="mx-1">
-          <b-button href="/add_client">Add Client</b-button>
+          <b-button href="/add_producer">Add Producer</b-button>
         </b-button-group>
         <b-dropdown class="mx-1" right text="menu">
           <b-dropdown-item>Элемент 1</b-dropdown-item>
@@ -17,21 +17,21 @@
             <div class="col-md-auto row justify-content-md per-page">
               <b-form-select v-model="perPage" :options="options"></b-form-select>
             </div>
-
       </b-button-toolbar>
     </div>
 
-    <b-table id="client-table" striped hover :items="clients" :fields="fields" :per-page="perPage"
-             :current-page="currentPage" primary-key="idClient">
+    <b-table id="producer-table" striped hover :items="producers" :fields="fields" :per-page="perPage"
+             :current-page="currentPage" primary-key="idProducer">
       <template v-slot:cell(edit)="data">
-        <b-button  :href="'/clients/' + data.item.idClient" >Edit</b-button>
+        <b-button  :href="'/producers/' + data.item.idProducer" >Edit</b-button>
       </template>
       <template v-slot:cell(delete)="data">
-        <b-button  v-b-modal.modal-center @click="idClientDelete = data.item.idClient" >Delete</b-button>
+        <b-button  v-b-modal.modal-center @click="idProducerDelete = data.item.idProducer" >Delete</b-button>
       </template>
     </b-table>
 
-    <p class="mt-3">Текущая страница: {{ currentPage }}</p>
+
+
     <b-pagination
         v-model="currentPage"
         :total-rows="rows"
@@ -40,27 +40,30 @@
         prev-text="Prev"
         next-text="Next"
         last-text="Last"
-        aria-controls="client-table"
+        aria-controls="producer-table"
+        align="center"
     ></b-pagination>
-    <b-modal id="modal-center" centered title="Delete Client" @ok="deleteClient(idClientDelete)">
-      <p class="my-4">Are you sure you want to delete this client?</p>
+
+    <b-modal id="modal-center" centered title="Delete Car" @ok="deleteProducer(idProducerDelete)" >
+      <p class="my-4">Are you sure you want to delete this car?</p>
     </b-modal>
+
 
   </div>
 </template>
 
 <script>
-import ClientService from "../../services/ClientService";
-import CarService from "@/services/CarService";
+import ProducerService from "@/services/ProducerService";
+
 export default {
-  name: "client-list",
+  name: "ProducerList",
   data(){
     return {
-      clients:[],
-      fields: ['idClient', 'fullName', 'userName', 'gender', 'phone', 'edit', 'delete'],
+      producers:[],
+      fields: ['company', 'address', 'edit', 'delete'],
       perPage: 3,
       currentPage: 1,
-      idClientDelete: null,
+      idProducerDelete: null,
       options: [
         { value: 3, text: 'Elements per page: 3' },
         { value: 5, text: 'Elements per page: 5' },
@@ -70,33 +73,34 @@ export default {
       ]
     }
   },
+
   async mounted(){
     try {
-      const response = await ClientService.getAll()
-      this.clients = response.data
+      const response = await ProducerService.getAll()
+      this.producers = response.data
     } catch (err) {
       this.error = err
     }
   },
   computed: {
     rows() {
-      return this.clients.length;
+      return this.producers.length;
     }},
   methods:{
-    async deleteClient(idClientDelete) {
-     try {
-       await ClientService.delete(idClientDelete)
-       this.$bvToast.toast('Client success deleted', {
-         title: `Delete client`,
-         variant: 'success',
-         solid: true,
-       });
-       const response = await ClientService.getAll()
-       this.clients = response.data
-     } catch (e){
+    async deleteProducer(idProducerDelete) {
+      try {
+        await ProducerService.delete(idProducerDelete);
+        this.$bvToast.toast('Producer success deleted', {
+          title: `Delete producer`,
+          variant: 'success',
+          solid: true,
+        });
+        const response = await ProducerService.getAll()
+        this.producers = response.data
+      } catch (e) {
+      }
+    },
 
-     }
-    }
   }
 }
 </script>

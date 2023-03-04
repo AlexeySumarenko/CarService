@@ -8,6 +8,7 @@ import org.CarService.mapper.ClientMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,12 +24,11 @@ public class ClientRepository {
     public List<Client> findAll() {
         return jdbcTemplate.query("SELECT * FROM client", new ClientMapperImpl());
     }
-
-    public Client saveClient(Client newClient) {
+    @Transactional
+    public int saveClient(Client newClient) {
         System.out.println(newClient);
-        jdbcTemplate.update("INSERT INTO client ( full_name, user_name, password, gender, phone) VALUES (?, ?, ?, " +
-                        "?, ?, ?) ", newClient.getFullName(), newClient.getUserName(), newClient.getPassword(), newClient.getGender(), newClient.getPhone());
-        return newClient;
+        jdbcTemplate.update("INSERT INTO client (full_name, user_name, password, gender, phone) VALUES (?, ?, ?, ?, ?) ", newClient.getFullName(), newClient.getUserName(), newClient.getPassword(), newClient.getGender(), newClient.getPhone());
+        return jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
     }
     /*public Client updateClient(int id, Client updatedClient) {
         jdbcTemplate.update("UPDATE client SET id_client=?, full_name=?, user_name=?, password=?, gender=?, phone=? WHERE id_client=?",

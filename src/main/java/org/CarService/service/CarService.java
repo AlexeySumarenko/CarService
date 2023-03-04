@@ -17,8 +17,8 @@ public class CarService {
 
     private CarMapper carMapper = new CarMapperImpl();
 
-    public List<Car> findAllCars() {
-        return carRepository.findAll();
+    public List<Car> findAllCars(int quantity) {
+        return carRepository.findAll(quantity);
     }
 
     public String deleteCar(int id) {

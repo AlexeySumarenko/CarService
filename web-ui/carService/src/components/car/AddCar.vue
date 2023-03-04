@@ -67,7 +67,6 @@
     </div>
 
     <div v-else>
-      <h4>You submitted successfully!</h4>
       <button class="btn btn-success" @click="newCar">Ok</button>
     </div>
   </div>
@@ -78,7 +77,7 @@ import CarService from "../../services/CarService";
 import ClientService from "@/services/ClientService";
 
 export default {
-  name: "add-car",
+  name: "Add_car",
   data() {
     return {
       car: {
@@ -102,7 +101,7 @@ export default {
     }
   },
   methods: {
-    saveCar() {
+    async saveCar() {
       var data = {
         idClient: parseInt(this.car.idClient),
         carBrand: this.car.carBrand,
@@ -110,16 +109,22 @@ export default {
         type: this.car.type,
         releaseYear: parseInt(this.car.releaseYear)
       };
+      try {
+        await CarService.create(data)
+              this.submitted = true;
+              this.$bvToast.toast('Car success added', {
+                title: `Add car`,
+                variant: 'success',
+                solid: true,
+            });
+      } catch (e) {
+        this.$bvToast.toast('Car not added', {
+          title: `Add car`,
+          variant: 'danger',
+          solid: true,
+        });
+      }
 
-      CarService.create(data)
-          .then(response => {
-            this.car.idCar = response.data.idCar;
-            console.log(response.data);
-            this.submitted = true;
-          })
-          .catch(e => {
-            console.log(e);
-          });
     },
 
     newCar() {

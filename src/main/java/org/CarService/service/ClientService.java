@@ -23,8 +23,8 @@ public class ClientService {
 
     public String deleteClient(int id) { return clientRepository.deleteClientById(id);}
 
-    public String saveClient(ClientDto clientDto){
-        clientRepository.saveClient(clientMapper.ClientDtoToClient(clientDto));
+    public String saveClient(Client client) {
+        clientRepository.saveClient(client);
         return "client saved successfully";
     }
 

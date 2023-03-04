@@ -6,12 +6,27 @@ import Home from '@/components/Home'
 import About from '@/components/About'
 import Contact from '@/components/Contact'
 import Car from "@/components/car/Car";
-import CarsList from "@/components/car/CarsList";
-import AddCar from "@/components/car/AddCar";
 import Client from "@/components/client/Client";
+import Employee from "@/components/employee/Employee";
+import Order from "@/components/order/Order";
+import Producer from "@/components/producer/Producer";
+import Service from "@/components/service/Service";
+import SparePart from "@/components/sparePart/SparePart";
+import CarsList from "@/components/car/CarsList";
 import ClientList from "@/components/client/ClientList";
+import EmployeeList from "@/components/employee/EmployeeList";
+import OrderList from "@/components/order/OrderList";
+import ProducerList from "@/components/producer/ProducerList";
+import ServiceList from "@/components/service/ServiceList";
+import SparePartList from "@/components/sparePart/SparePartList";
+import AddCar from "@/components/car/AddCar";
 import AddClient from "@/components/client/AddClient";
-import PopUpDeleteCar from "@/components/car/PopUpDeleteCar";
+import AddEmployee from "@/components/employee/AddEmployee";
+import AddOrder from "@/components/order/AddOrder";
+import AddProducer from "@/components/producer/AddProducer";
+import AddService from "@/components/service/AddService";
+import AddSparePart from "@/components/sparePart/AddSparePart";
+
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +38,16 @@ export default new Router({
             component: Home
         },
         {
+            path: '/about',
+            name: 'About',
+            component: About
+        },
+        {
+            path: '/contact',
+            name: 'Contact',
+            component: Contact
+        },
+        {
             path: '/cars',
             name: 'Cars',
             component: CarsList
@@ -32,11 +57,6 @@ export default new Router({
             name: 'Car',
             component: Car
         },
-     /*   {
-            path: '/cars/PopUpDeleteCar/:id',
-            name: 'PopUpDeleteCar',
-            component: PopUpDeleteCar
-        },*/
         {
             path: '/add_car',
             name: 'Add_car',
@@ -58,14 +78,79 @@ export default new Router({
             component: AddClient
         },
         {
-            path: '/about',
-            name: 'About',
-            component: About
+            path: '/employees',
+            name: 'Employees',
+            component: EmployeeList
         },
         {
-            path: '/contact',
-            name: 'Contact',
-            component: Contact
+            path: '/employees/:id',
+            name: 'Employee',
+            component: Employee
+        },
+        {
+            path: '/add_employee',
+            name: 'Add_employee',
+            component: AddEmployee
+        },
+        {
+            path: '/orders',
+            name: 'Orders',
+            component: OrderList
+        },
+        {
+            path: '/orders/:id',
+            name: 'Order',
+            component: Order
+        },
+        {
+            path: '/add_order',
+            name: 'Add_order',
+            component: AddOrder
+        },
+        {
+            path: '/producers',
+            name: 'Producers',
+            component: ProducerList
+        },
+        {
+            path: '/producers/:id',
+            name: 'Producer',
+            component: Producer
+        },
+        {
+            path: '/add_producer',
+            name: 'Add_producer',
+            component: AddProducer
+        },
+        {
+            path: '/services',
+            name: 'Services',
+            component: ServiceList
+        },
+        {
+            path: '/services/:id',
+            name: 'Service',
+            component: Service
+        },
+        {
+            path: '/add_service',
+            name: 'Add_Service',
+            component: AddService
+        },
+        {
+            path: '/spare_parts',
+            name: 'SpareParts',
+            component: SparePartList
+        },
+        {
+            path: '/spare_parts/:id',
+            name: 'SparePart',
+            component: SparePart
+        },
+        {
+            path: '/add_spare_part',
+            name: 'Add_spare_part',
+            component: AddSparePart
         }
     ]
 })

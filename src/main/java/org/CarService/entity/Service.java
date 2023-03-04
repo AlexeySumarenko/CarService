@@ -8,5 +8,6 @@ public class Service {
     private String serviceName;
     private Double price;
     private String guarantee;
+    private int idEmployee;
 
 }

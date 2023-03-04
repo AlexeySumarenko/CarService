@@ -2,18 +2,6 @@
   <div class="submit-form">
     <div v-if="!submitted">
 
-<!--      <div class="form-group">
-        <label for="title">ClientId</label>
-        <input
-            type="text"
-            class="form-control"
-            id="CarId"
-            required
-            v-model="client.idClient"
-            name="CarId"
-        />
-      </div>-->
-
       <div class="form-group">
         <label for="description">FullName</label>
         <input
@@ -38,7 +26,7 @@
         />
       </div>
 
-<!--      <div class="form-group">
+      <div class="form-group">
         <label for="description">Password</label>
         <input
             type="text"
@@ -48,7 +36,7 @@
             v-model="client.password"
             name="type"
         />
-      </div>-->
+      </div>
 
       <div class="form-group">
         <label for="description">Gender</label>
@@ -79,7 +67,7 @@
 
     <div v-else>
       <h4>You submitted successfully!</h4>
-      <button class="btn btn-success" @click="newClient">Add</button>
+      <button class="btn btn-success" @click="newClient">Ok</button>
     </div>
   </div>
 </template>
@@ -88,12 +76,13 @@
 import ClientService from "../../services/ClientService";
 
 export default {
-  name: "add-client",
+  name: "Add_client",
   data() {
     return {
       client: {
         fullName: "",
         userName: "",
+        password: "",
         gender: "",
         phone: "",
       },
@@ -101,24 +90,29 @@ export default {
     };
   },
   methods: {
-    saveClient() {
+   async saveClient() {
       var data = {
         fullName: this.client.fullName,
         userName: this.client.userName,
+        password: this.client.password,
         gender: this.client.gender,
         phone: this.client.phone,
       };
-
-      ClientService.create(data)
-          .then(response => {
-            this.client.idClient = response.data.idClient;
-            console.log(response.data);
-            this.submitted = true;
-          })
-          .catch(e => {
-            console.log(e);
-          });
-    },
+     try {
+       await ClientService.create(data)
+       this.submitted = true;
+       this.$bvToast.toast('Toast body content', {
+         title: `Client success added`,
+         variant: 'success',
+         solid: true,
+       });
+     } catch (e) {
+       this.$bvToast.toast('Toast body content', {
+         title: `Client not added`,
+         variant: 'danger',
+         solid: true,
+       });
+     }},
 
     newClient() {
       this.submitted = false;

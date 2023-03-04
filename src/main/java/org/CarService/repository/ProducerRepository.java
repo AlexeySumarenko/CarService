@@ -7,6 +7,7 @@ import org.CarService.mapper.ProducerMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class ProducerRepository {
     public List<Producer> findAll() {
         return jdbcTemplate.query("SELECT * FROM producer", new ProducerMapperImpl());
     }
-
-    public Producer saveProducer(Producer newProducer) {
+    @Transactional
+    public int saveProducer(Producer newProducer) {
         System.out.println(newProducer);
         jdbcTemplate.update("INSERT INTO producer (company, address) VALUES ( ?, ?) ", newProducer.getCompany(), newProducer.getAddress());
-        return newProducer;
+        return jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
     }
     public Producer updateProducer(int id, Producer updatedProducer) {
         jdbcTemplate.update("UPDATE producer SET company=?, address=? WHERE id_producer=?",

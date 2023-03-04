@@ -27,8 +27,8 @@ public class ClientController {
     }
 
     @PostMapping()
-    public String saveClient(@RequestBody ClientDto clientDto){
-        return this.clientService.saveClient(clientDto);
+    public String saveClient(@RequestBody Client client){
+        return this.clientService.saveClient(client);
     }
     @GetMapping("/{id}")
     public Client findClient(@PathVariable int id){
