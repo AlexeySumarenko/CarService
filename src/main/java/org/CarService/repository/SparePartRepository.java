@@ -23,6 +23,10 @@ public class SparePartRepository {
     public List<SparePart> findAll() {
         return jdbcTemplate.query("SELECT * FROM spare_part", new SparePartMapperImpl());
     }
+    public int getCount(){
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM spare_part", Integer.class);
+    }
+
     @Transactional
     public int saveSparePart(SparePart newSparePart) {
         System.out.println(newSparePart);

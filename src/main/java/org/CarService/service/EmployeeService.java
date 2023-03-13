@@ -36,4 +36,11 @@ public class EmployeeService {
     public Employee findEmployeeById(int id){
         return employeeRepository.findById(id);
     }
+    public int getPageCount(int quantity){
+        int Count = employeeRepository.getCount();
+        return (int) Math.ceil((double) Count/quantity);
+    }
+    public int getCount(){
+        return employeeRepository.getCount();
+    }
 }

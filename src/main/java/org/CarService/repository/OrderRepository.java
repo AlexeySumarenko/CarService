@@ -24,6 +24,9 @@ public class OrderRepository {
     public List<Order> findAll() {
         return jdbcTemplate.query("SELECT * FROM order", new OrderMapperImpl());
     }
+    public int getCount(){
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM order", Integer.class);
+    }
     @Transactional
     public int saveOrder(Order newOrder) {
         System.out.println(newOrder);

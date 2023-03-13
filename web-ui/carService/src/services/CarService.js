@@ -1,8 +1,13 @@
 import http from "../http-common";
 
 class CarService{
-    getAll(params) {
-        return http.get("/cars", {params});
+    getAll(currentPage, quantity) {
+        return http.get(`/cars`, {
+            params: {
+                pageNumber: currentPage,
+                quantity: quantity
+            }
+        });
     }
 
     get(id) {

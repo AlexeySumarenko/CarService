@@ -20,8 +20,12 @@ public class CarRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Car> findAll(int quantity) {
-        return jdbcTemplate.query("SELECT * FROM car LIMIT=?", new CarMapperImpl(), quantity);
+    public List<Car> findAll(int offset, int quantity) {
+        return jdbcTemplate.query("SELECT * FROM car ORDER BY id_car ASC LIMIT ?, ?", new CarMapperImpl(), offset, quantity);
+    }
+
+    public int getCount(){
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM car", Integer.class);
     }
     @Transactional
     public int saveCar(Car newCar) {

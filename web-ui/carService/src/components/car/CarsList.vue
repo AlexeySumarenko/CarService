@@ -13,16 +13,14 @@
           <b-dropdown-item>Элемент 3</b-dropdown-item>
         </b-dropdown>
 
-
             <div class="col-md-auto row justify-content-md per-page">
-              <b-form-select v-model="perPage" :options="options"></b-form-select>
+              <b-form-select v-model="perPage" :options="options" @change="getCars"></b-form-select>
             </div>
 
       </b-button-toolbar>
     </div>
 
-    <b-table id="car-table" striped hover :items="cars" :fields="fields" :per-page="perPage"
-             :current-page="currentPage" primary-key="idCar">
+    <b-table id="car-table" striped hover :items="cars" :fields="fields"  primary-key="idCar">
       <template v-slot:cell(edit)="data">
         <b-button  :href="'/cars/' + data.item.idCar" >Edit</b-button>
       </template>
@@ -31,19 +29,12 @@
       </template>
     </b-table>
 
-
-
     <b-pagination
         v-model="currentPage"
-        :total-rows="rows"
+        :total-rows="totalRows"
         :per-page="perPage"
-        first-text="First"
-        prev-text="Prev"
-        next-text="Next"
-        last-text="Last"
-        aria-controls="car-table"
-        align="center"
-    ></b-pagination>
+        @input="getCars">
+    </b-pagination>
 
     <b-modal id="modal-center" centered title="Delete Car" @ok="deleteCar(idCarDelete)" >
       <p class="my-4">Are you sure you want to delete this car?</p>
@@ -61,8 +52,10 @@ export default {
     return {
       cars:[],
       fields: ['idCar', 'idClient', 'carBrand', 'model', 'type', 'releaseYear', 'edit', 'delete'],
-      perPage: 3,
       currentPage: 1,
+      perPage: 3,
+      totalRows: 0,
+      totalPages: 0,
       idCarDelete: null,
       options: [
         { value: 3, text: 'Elements per page: 3' },
@@ -70,25 +63,23 @@ export default {
         { value: 10, text: 'Elements per page: 10' },
         { value: 15, text: 'Elements per page: 15' },
         { value: 20, text: 'Elements per page: 20' }
-      ]
-    }
-  },
+      ],
 
-  async mounted(){
-    try {
-      const params = this.perPage
-      const response = await CarService.getAll(params)
-      this.cars = response.data
-    } catch (err) {
-      this.error = err
     }
   },
   computed: {
-    rows() {
-      return this.cars.length;
-    }},
-  methods:{
+    getPerPage() {
+      return this.perPage;
+    },
+    getCurrentPage() {
+      return this.currentPage;
+    }
+  },
 
+  created() {
+    this.getCars(this.getCurrentPage, this.getPerPage)
+  },
+  methods:{
     async deleteCar(idCarDelete) {
       try {
         await CarService.delete(idCarDelete);
@@ -97,13 +88,17 @@ export default {
           variant: 'success',
           solid: true,
         });
-        const params = this.perPage
-        const response = await CarService.getAll(params)
-
-        this.cars = response.data
+        await this.getCars(this.getCurrentPage, this.getPerPage)
       } catch (e) {
       }
+    },
+    async getCars(){
+      const response = await CarService.getAll(this.getCurrentPage, this.getPerPage)
+      this.totalPages = response.data.pageCount
+      this.totalRows = response.data.totalRows
+      this.cars = response.data.cars
     }
+
   }
 }
 </script>

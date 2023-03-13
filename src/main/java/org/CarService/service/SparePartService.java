@@ -36,4 +36,11 @@ public class SparePartService {
     public SparePart findSparePartById(int id){
         return sparePartRepository.findById(id);
     }
+    public int getPageCount(int quantity){
+        int Count = sparePartRepository.getCount();
+        return (int) Math.ceil((double) Count/quantity);
+    }
+    public int getCount(){
+        return sparePartRepository.getCount();
+    }
 }

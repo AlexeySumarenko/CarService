@@ -36,4 +36,11 @@ public class ProducerService {
     public Producer findProducerById(int id){
         return producerRepository.findById(id);
     }
+    public int getPageCount(int quantity){
+        int Count = producerRepository.getCount();
+        return (int) Math.ceil((double) Count/quantity);
+    }
+    public int getCount(){
+        return producerRepository.getCount();
+    }
 }

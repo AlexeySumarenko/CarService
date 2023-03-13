@@ -23,6 +23,9 @@ public class ServiceRepository {
     public List<Service> findAll() {
         return jdbcTemplate.query("SELECT * FROM service", new ServiceMapperImpl());
     }
+    public int getCount(){
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM service", Integer.class);
+    }
     @Transactional
     public int saveService(Service newService) {
         System.out.println(newService);

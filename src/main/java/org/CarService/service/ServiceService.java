@@ -35,4 +35,11 @@ public class ServiceService {
     public org.CarService.entity.Service findServiceById(int id){
         return serviceRepository.findById(id);
     }
+    public int getPageCount(int quantity){
+        int Count = serviceRepository.getCount();
+        return (int) Math.ceil((double) Count/quantity);
+    }
+    public int getCount(){
+        return serviceRepository.getCount();
+    }
 }

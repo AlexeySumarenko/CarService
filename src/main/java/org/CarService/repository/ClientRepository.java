@@ -24,6 +24,9 @@ public class ClientRepository {
     public List<Client> findAll() {
         return jdbcTemplate.query("SELECT * FROM client", new ClientMapperImpl());
     }
+    public int getCount(){
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM client", Integer.class);
+    }
     @Transactional
     public int saveClient(Client newClient) {
         System.out.println(newClient);

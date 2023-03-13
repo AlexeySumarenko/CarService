@@ -33,5 +33,12 @@ public class ClientService {
     }
 
     public Client findClientById(int id) {return clientRepository.findById(id);}
+    public int getPageCount(int quantity){
+        int Count = clientRepository.getCount();
+        return (int) Math.ceil((double) Count/quantity);
+    }
+    public int getCount(){
+        return clientRepository.getCount();
+    }
 
 }

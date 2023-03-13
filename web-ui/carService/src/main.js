@@ -7,8 +7,10 @@ import router from './router/router'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 
+
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+
 
 new Vue({
   router,

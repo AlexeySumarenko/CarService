@@ -17,8 +17,8 @@ public class CarService {
 
     private CarMapper carMapper = new CarMapperImpl();
 
-    public List<Car> findAllCars(int quantity) {
-        return carRepository.findAll(quantity);
+    public List<Car> findAllCars(int offset, int quantity) {
+        return carRepository.findAll(offset, quantity);
     }
 
     public String deleteCar(int id) {
@@ -36,6 +36,15 @@ public class CarService {
     public Car findCarById(int id){
         return carRepository.findById(id);
     }
+
+    public int getPageCount(int quantity){
+        int Count = carRepository.getCount();
+        return (int) Math.ceil((double) Count/quantity);
+    }
+    public int getCount(){
+        return carRepository.getCount();
+    }
+
 }
 
 

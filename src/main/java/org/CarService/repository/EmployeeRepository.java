@@ -22,6 +22,9 @@ public class EmployeeRepository {
     public List<Employee> findAll() {
         return jdbcTemplate.query("SELECT * FROM employee", new EmployeeMapperImpl());
     }
+    public int getCount(){
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM employee", Integer.class);
+    }
     @Transactional
     public int saveEmployee(Employee newEmployee) {
         System.out.println(newEmployee);

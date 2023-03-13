@@ -35,4 +35,11 @@ public class OrderService {
     public Order findOrderById(int id){
         return orderRepository.findById(id);
     }
+    public int getPageCount(int quantity){
+        int Count = orderRepository.getCount();
+        return (int) Math.ceil((double) Count/quantity);
+    }
+    public int getCount(){
+        return orderRepository.getCount();
+    }
 }

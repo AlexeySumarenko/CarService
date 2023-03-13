@@ -23,6 +23,9 @@ public class ProducerRepository {
     public List<Producer> findAll() {
         return jdbcTemplate.query("SELECT * FROM producer", new ProducerMapperImpl());
     }
+    public int getCount(){
+        return jdbcTemplate.queryForObject("SELECT count(*) FROM producer", Integer.class);
+    }
     @Transactional
     public int saveProducer(Producer newProducer) {
         System.out.println(newProducer);
