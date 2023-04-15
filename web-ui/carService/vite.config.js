@@ -20,7 +20,7 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
       json2csv: "json2csv/dist/json2csv.umd.js",
-      '~bootstrap': 'bootstrap'
+      '~bootstrap': 'bootstrap',
     },
   },
   css: {
@@ -34,4 +34,5 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+
 });

@@ -28,7 +28,7 @@ public class CarController {
         List<Car> list = this.carService.findAllCars(offset,quantity);
 
         PagedResponse<Car> pagedResponse = new PagedResponse<>();
-        pagedResponse.setPageNumber(pageNumber);
+        pagedResponse.setPageNumber(Math.min(Math.max(1, pageNumber), pageCount));
         pagedResponse.setPageCount(pageCount);
         pagedResponse.setCars(list);
         pagedResponse.setTotalRows(this.carService.getCount());

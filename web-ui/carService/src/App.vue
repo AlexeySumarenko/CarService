@@ -1,16 +1,21 @@
 <template>
   <div id="app">
-    <Navigation></Navigation>
-    <router-view/>
+    <navigation></navigation>
+    <home></home>
   </div>
 </template>
 
 <script>
-import Navigation from './components/Navigation'
+import AdminNavigation from './components/AdminNavigation'
+import Home from "@/components/Home";
+import Navigation from "@/components/Navigation";
+
 export default {
   name: 'app',
   components: {
-    'Navigation': Navigation,
+    //'admin-navigation': AdminNavigation,
+    'home': Home,
+    'navigation': Navigation
   }
 }
 </script>

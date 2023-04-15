@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 
 import Home from '@/components/Home'
-import About from '@/components/About'
 import Contact from '@/components/Contact'
 import Car from "@/components/car/Car";
 import Client from "@/components/client/Client";
@@ -26,6 +25,7 @@ import AddOrder from "@/components/order/AddOrder";
 import AddProducer from "@/components/producer/AddProducer";
 import AddService from "@/components/service/AddService";
 import AddSparePart from "@/components/sparePart/AddSparePart";
+import AdminHome from "@/components/AdminHome";
 
 Vue.use(Router)
 
@@ -36,11 +36,6 @@ export default new Router({
             path: '/home',
             name: 'Home',
             component: Home
-        },
-        {
-            path: '/about',
-            name: 'About',
-            component: About
         },
         {
             path: '/contact',
